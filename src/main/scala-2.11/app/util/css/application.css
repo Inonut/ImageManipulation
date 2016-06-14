@@ -1,4 +1,4 @@
-#pane{
+.pane{
     -fx-border-color: midnightblue;
     -fx-border-width: 1px;
     -fx-background-color: white;

@@ -5,6 +5,7 @@ import app.gui.view.View
 
 import scala.async.Async._
 import scala.concurrent.ExecutionContext.Implicits.global
+import scalafx.stage.FileChooser
 
 
 /**
@@ -12,13 +13,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 trait Controller {
 
-  def continueExecute(data: Model, command: String): PartialFunction[String, Model]
+  protected def continueExecute: PartialFunction[Any, Any]
 
   def execute(view: View, command: String): Unit = {
     val data = view.getDataView
-    async { continueExecute(data, command)} map{
+    async { continueExecute(data, command)} recover {
       case (model: Model) => view.updateView(model)
-      case (e: Exception) => print("bau")
+      case (e: Exception) => e.printStackTrace()
+      case _ => println("-----")
     }
   }
 

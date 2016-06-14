@@ -3,6 +3,8 @@ package app.gui.view
 import app.gui.controller.Controller
 import app.gui.model.Model
 
+import scalafx.stage.Window
+
 /**
   * Created by Dragos on 6/14/2016.
   */
