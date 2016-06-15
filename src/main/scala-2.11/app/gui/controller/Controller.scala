@@ -22,6 +22,7 @@ trait Controller {
   def execute(params: Any)(implicit owner: View): Unit = {
     async { continueExecute(params)} map {
       case (model: Model) => Util.runOnFxThread {owner.updateView(model)}
+      case _ => Unit
     } recover {
       case (e: Exception) => e.printStackTrace()
     }

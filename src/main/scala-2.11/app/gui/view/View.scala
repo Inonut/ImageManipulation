@@ -16,7 +16,7 @@ trait View {
   protected val controller: Controller
 
 
-  def init(): Model
+  protected def init(): Model
 
   def updateView(model: Model): Unit
   def getDataView: Model

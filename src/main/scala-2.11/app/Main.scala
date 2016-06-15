@@ -1,6 +1,7 @@
 package app
 
 import app.gui.view.impl.AppView
+import app.util.Constants
 import app.util.css.CSS
 
 import scalafx.application.JFXApp
@@ -15,7 +16,7 @@ object Main extends JFXApp{
 
   stage = new PrimaryStage{
     scene = new Scene{
-      stylesheets add CSS.getClass.getResource("application.css").toExternalForm
+      stylesheets add CSS.getClass.getResource(Constants.applicationCSS).toExternalForm
       root = AppView()
     }
   }

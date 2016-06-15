@@ -8,4 +8,5 @@ import app.gui.model.{AppModel, Model}
 trait TAppController extends Controller{
 
   def addImage(model: AppModel): AppModel
+  def clearCanvas(model: AppModel): AppModel
 }
