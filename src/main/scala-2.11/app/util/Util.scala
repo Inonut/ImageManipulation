@@ -7,7 +7,7 @@ import com.sun.javafx.application.PlatformImpl
   */
 object Util {
 
-  def runOnFxThread[T]( fct: => T): T = {
+  def runOnFxThread[T](fct: => T): T = {
     var respons: T = null.asInstanceOf[T]
     PlatformImpl.runAndWait(new Runnable {
       override def run(): Unit = respons = fct

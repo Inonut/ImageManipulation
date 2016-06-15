@@ -11,11 +11,11 @@ import scalafx.scene.Scene
 /**
   * Created by Dragos on 6/14/2016.
   */
-object Main extends JFXApp{
+object Main extends JFXApp {
 
 
-  stage = new PrimaryStage{
-    scene = new Scene{
+  stage = new PrimaryStage {
+    scene = new Scene {
       stylesheets add CSS.getClass.getResource(Constants.applicationCSS).toExternalForm
       root = AppView()
     }
