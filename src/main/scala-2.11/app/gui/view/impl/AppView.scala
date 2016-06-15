@@ -15,6 +15,7 @@ import scalafx.scene.input.MouseEvent
 import scalafx.scene.layout._
 import scalafx.Includes._
 import scalafx.event.ActionEvent
+import scalafx.scene.image.ImageView
 
 /**
   * Created by Dragos on 6/14/2016.
@@ -30,20 +31,19 @@ class AppView extends GridPane with View{
     val columnConstraints = new ColumnConstraints
     val rowConstraints = new RowConstraints
     val canvasPane = new Pane {
-      GridPane.setRowIndex(this,0)
-      GridPane.setColumnIndex(this,0)
 
       styleClass add "pane"
+
+      prefWidth <==> canvas.width
+      prefHeight <==> canvas.height
 
       children add canvas
     }
     val importButton = new Button {
-      GridPane.setRowIndex(this,1)
-      GridPane.setColumnIndex(this,0)
 
       text = "Import"
 
-      onAction = (e: ActionEvent) => controller.execute(owner, Constants.addImage)
+      onAction = (e: ActionEvent) => controller execute(owner.getDataView, Constants.addImage)
     }
 
 
@@ -56,23 +56,29 @@ class AppView extends GridPane with View{
       rowConstraints
     )
 
+    GridPane.setRowIndex(canvasPane,0)
+    GridPane.setColumnIndex(canvasPane,0)
+    GridPane.setRowIndex(importButton,1)
+    GridPane.setColumnIndex(importButton,0)
+
     this.children = List(
       canvasPane,
       importButton
     )
 
-    AppNodesModel(canvas)
+    AppNodesModel(canvas,canvasPane)
   }
 
-  override def updateView(model: Model): Unit = {
-    val appModel = model.asInstanceOf[AppModel]
-
-    val x = nodes.canvas.width.value
-    val y = nodes.canvas.height.value
-    nodes.canvas.graphicsContext2D.drawImage(appModel.canvasImage, x, y)
+  override def updateView(modelReceive: Model): Unit = modelReceive match {
+    case null => Unit
+    case appModel: AppModel =>
+      nodes.canvas.graphicsContext2D.drawImage(appModel.canvasImage, 0, 0)
   }
 
-  override def getDataView: AppModel = AppModel(nodes.canvas.snapshot(null,null))
+  override def getDataView: AppModel = AppModel(
+    nodes.canvas.snapshot(null,null),
+    nodes.canvas.width.value,
+    nodes.canvas.height.value)
 
 }
 

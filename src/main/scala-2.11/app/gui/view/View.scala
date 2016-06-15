@@ -10,9 +10,11 @@ import scalafx.stage.Window
   */
 trait View {
 
-  protected val controller: Controller
-  protected val owner = this
+  protected implicit val owner: View = this
+
   protected val nodes: Model
+  protected val controller: Controller
+
 
   def init(): Model
 
