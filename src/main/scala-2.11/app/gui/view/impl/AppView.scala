@@ -1,5 +1,6 @@
 package app.gui.view.impl
 
+import akka.actor.{ActorRef, Props}
 import app.gui.controller.Controller
 import app.gui.controller.impl.AppController
 import app.gui.model.{AppModel, AppNodesModel, Model}
@@ -17,12 +18,17 @@ import scalafx.scene.layout._
   */
 class AppView extends GridPane with View {
 
-  override protected val controller: Controller = new AppController
+  override protected implicit val controller: ActorRef = Constants.system.actorOf(Props[AppController], name = "app")
   override protected val nodes: AppNodesModel = init()
 
   override def updateView(modelReceive: Model): Unit = modelReceive match {
-    case appModel: AppModel if appModel.canvasImage != null && Constants.addImage.equals(appModel.command) => nodes.canvas.graphicsContext2D.drawImage(appModel.canvasImage, 0, 0)
-    case appModel: AppModel if Constants.clearCanvas.equals(appModel.command) => nodes.canvas.graphicsContext2D.clearRect(0, 0, appModel.canvasWidth, appModel.canvasHeight)
+    case appModel: AppModel =>
+      if (appModel.canvasImage != null && Constants.addImage.equals(appModel.command)){
+        nodes.canvas.graphicsContext2D.drawImage(appModel.canvasImage, 0, 0)
+      }
+      if(Constants.clearCanvas.equals(appModel.command)){
+        nodes.canvas.graphicsContext2D.clearRect(0, 0, appModel.canvasWidth, appModel.canvasHeight)
+      }
     case _ => Unit
   }
 
@@ -30,7 +36,8 @@ class AppView extends GridPane with View {
     Constants.collectData,
     nodes.canvas.snapshot(null, null),
     nodes.canvas.width.value,
-    nodes.canvas.height.value)
+    nodes.canvas.height.value,
+    this.getScene.getWindow)
 
   override protected def init(): AppNodesModel = {
 
@@ -50,13 +57,13 @@ class AppView extends GridPane with View {
 
       text = "Import"
 
-      onAction = (e: ActionEvent) => controller execute(owner.getDataView, Constants.addImage)
+      onAction = (e: ActionEvent) => owner execute (owner.getDataView, Constants.addImage)
     }
     val clearButton = new Button {
 
       text = "Clear"
 
-      onAction = (e: ActionEvent) => controller execute(owner.getDataView, Constants.clearCanvas)
+      onAction = (e: ActionEvent) => owner execute (owner.getDataView, Constants.clearCanvas)
     }
     val hBox = new HBox {
       children addAll(importButton, clearButton)

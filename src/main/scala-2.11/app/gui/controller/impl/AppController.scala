@@ -3,6 +3,8 @@ package app.gui.controller.impl
 
 import java.io.{File, FileInputStream}
 
+import akka.actor.Actor
+import akka.actor.Actor.Receive
 import app.gui.controller.TAppController
 import app.gui.model.{AppModel, Model}
 import app.util.{Constants, Util}
@@ -16,19 +18,19 @@ import scalafx.stage.FileChooser
   */
 class AppController extends TAppController {
 
-  override def continueExecute: PartialFunction[Any, Model] = {
-    case (data: AppModel, Constants.addImage) => addImage(data)
-    case (data: AppModel, Constants.clearCanvas) => clearCanvas(data)
+  override def receive: Receive = {
+    case (data: AppModel, Constants.addImage) => sender ! addImage(data)
+    case (data: AppModel, Constants.clearCanvas) => sender ! clearCanvas(data)
   }
 
   override def addImage(data: AppModel): AppModel = {
     Util.runOnFxThread {
-      new FileChooser().showOpenDialog(null)
+      new FileChooser().showOpenDialog(data.view)
     } match {
-      case null => null
+      case null => AppModel(Constants.addImage)
       case file: File =>
-        val inputStream = new FileInputStream(file)
 
+        val inputStream = new FileInputStream(file)
         try {
 
           val imageView = new ImageView()
@@ -46,4 +48,6 @@ class AppController extends TAppController {
   }
 
   override def clearCanvas(model: AppModel): AppModel = AppModel(Constants.clearCanvas, model.canvasWidth, model.canvasHeight)
+
+
 }
