@@ -1,0 +1,27 @@
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Button?>
+<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.gui.controller.impl.AppController">
+
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+
+    <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="pane" fx:id="canvasPane">
+        <Canvas fx:id="canvas" width="${canvasPane.width}" height="${canvasPane.height}"/>
+    </Pane>
+    <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <Button text="Inport" onAction="#onImport_Click"/>
+        <Button text="Clear"/>
+    </HBox>
+
+</GridPane>

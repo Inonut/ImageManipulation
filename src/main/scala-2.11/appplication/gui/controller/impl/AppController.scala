@@ -1,13 +1,13 @@
-package app.gui.controller.impl
+package appplication.gui.controller.impl
 
 
 import java.io.{File, FileInputStream}
 
 import akka.actor.Actor
 import akka.actor.Actor.Receive
-import app.gui.controller.TAppController
-import app.gui.model.{AppModel, Model}
-import app.util.{Constants, Util}
+import appplication.gui.controller.TAppController
+import appplication.gui.model.{AppModel, Model}
+import appplication.util.{Constants, Util}
 
 import scalafx.scene.image.{Image, ImageView}
 import scalafx.stage.FileChooser

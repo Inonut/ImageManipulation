@@ -1,11 +1,11 @@
-package app.gui.view.impl
+package appplication.gui.view.impl
 
 import akka.actor.{ActorRef, Props}
-import app.gui.controller.Controller
-import app.gui.controller.impl.AppController
-import app.gui.model.{AppModel, AppNodesModel, Model}
-import app.gui.view.View
-import app.util.Constants
+import appplication.gui.controller.Controller
+import appplication.gui.controller.impl.AppController
+import appplication.gui.model.{AppModel, AppNodesModel, Model}
+import appplication.gui.view.View
+import appplication.util.Constants
 
 import scalafx.Includes._
 import scalafx.event.ActionEvent
@@ -18,7 +18,7 @@ import scalafx.scene.layout._
   */
 class AppView extends GridPane with View {
 
-  override protected implicit val controller: ActorRef = Constants.system.actorOf(Props[AppController], name = "app")
+  override protected implicit val controller: ActorRef = Constants.system.actorOf(Props[AppController], name = "appplication")
   override protected val nodes: AppNodesModel = init()
 
   override def updateView(modelReceive: Model): Unit = modelReceive match {

@@ -1,9 +1,9 @@
-package app.util
+package appplication.util
 
 import com.sun.javafx.application.PlatformImpl
 
 /**
-  * Created by Dragos on 17.06.2016.
+  * Created by Dragos on 6/14/2016.
   */
 object Util {
 
@@ -14,5 +14,4 @@ object Util {
     })
     respons
   }
-
 }

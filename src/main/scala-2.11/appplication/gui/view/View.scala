@@ -1,12 +1,12 @@
-package app.gui.view
+package appplication.gui.view
 
 import java.util.concurrent.TimeUnit
 
 import akka.actor.ActorRef
 import akka.pattern.ask
 import akka.util.Timeout
-import app.gui.model.Model
-import app.util.Util
+import appplication.gui.model.Model
+import appplication.util.Util
 
 import scala.concurrent.ExecutionContext.Implicits.global
 

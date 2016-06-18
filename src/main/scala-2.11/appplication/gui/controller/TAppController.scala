@@ -1,6 +1,6 @@
-package app.gui.controller
+package appplication.gui.controller
 
-import app.gui.model.AppModel
+import appplication.gui.model.AppModel
 
 /**
   * Created by Dragos on 6/15/2016.
