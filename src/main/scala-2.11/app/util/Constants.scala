@@ -12,8 +12,4 @@ object Constants {
   val applicationFXML = "appplication.fxml"
   val applicationCSS = "application.css"
 
-
-  val commandTest = "test"
-  val commandNone = "none"
-
 }

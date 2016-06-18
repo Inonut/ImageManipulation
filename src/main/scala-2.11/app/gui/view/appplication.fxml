@@ -6,7 +6,7 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
-<GridPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.gui.controller.impl.AppController">
+<GridPane fx:id="grid" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.gui.controller.impl.AppController">
 
     <columnConstraints>
         <ColumnConstraints />
@@ -21,7 +21,7 @@
     </Pane>
     <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
         <Button text="Inport" onAction="#onImport_Click"/>
-        <Button text="Clear"/>
+        <Button text="Clear" onAction="#onClear_Click"/>
     </HBox>
 
 </GridPane>
