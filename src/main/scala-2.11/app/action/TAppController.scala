@@ -7,8 +7,9 @@ import app.gui.model.AppModel
   */
 trait TAppController extends Action{
 
-  def addImage(model: AppModel): AppModel
+  def scaleImage(model: AppModel): AppModel
 
   def clearCanvas(model: AppModel): AppModel
+  def ajustImage(model: AppModel): AppModel
 
 }

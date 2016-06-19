@@ -6,6 +6,10 @@
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <GridPane fx:id="grid" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app.gui.controller.impl.AppController">
 
     <columnConstraints>
@@ -14,14 +18,38 @@
     <rowConstraints>
         <RowConstraints />
         <RowConstraints />
+        <RowConstraints />
     </rowConstraints>
 
     <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="pane" fx:id="canvasPane">
         <Canvas fx:id="canvas" width="${canvasPane.width}" height="${canvasPane.height}"/>
+        <ImageView fx:id="inportedImage" visible="false" />
     </Pane>
     <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
         <Button text="Inport" onAction="#onImport_Click"/>
         <Button text="Clear" onAction="#onClear_Click"/>
     </HBox>
+    <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
+        <HBox>
+            <Label text="Red" />
+            <Slider fx:id="redSlider" min="0" max="100" value="100" />
+            <Label fx:id="redSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Green" />
+            <Slider fx:id="greenSlider" min="0" max="100" value="100" />
+            <Label fx:id="greenSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Blue" />
+            <Slider fx:id="blueSlider" min="0" max="100" value="100" />
+            <Label fx:id="blueSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Opacity" />
+            <Slider fx:id="opacitySlider" min="0" max="100" value="100" />
+            <Label fx:id="opacitySliderLabel"/>
+        </HBox>
+    </VBox>
 
 </GridPane>

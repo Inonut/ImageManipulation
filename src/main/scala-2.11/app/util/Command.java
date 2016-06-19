@@ -8,5 +8,5 @@ public enum Command {
     NONE,
     IMPORT_IMAGE,
     COLLECT_DATA,
-    CLEAR
+    SCALE_IMAGE, VIEW, CLEAR, AJUST_IMAGE
 }

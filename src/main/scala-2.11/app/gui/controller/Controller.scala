@@ -22,8 +22,8 @@ abstract class Controller {
 
   def updateView(model: Model)
 
-  def getModel: Model = getModel(Command.COLLECT_DATA)
-  def getModel(command: Command): Model
+  //def getModel: Model = getModel(Command.COLLECT_DATA)
+  //def getModel(command: Command): Model
 
   def execute(modelParam: Model): Unit = {
     action ? modelParam map {

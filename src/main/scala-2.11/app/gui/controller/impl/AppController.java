@@ -1,61 +1,68 @@
 package app.gui.controller.impl;
 
-import akka.actor.ActorRef;
-import app.action.impl.AppAction;
-import app.gui.controller.Controller;
-import app.gui.model.AppModel;
-import app.gui.model.Model;
+import app.gui.model.AppModelView;
 import app.util.Command;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
+import javafx.util.converter.NumberStringConverter;
+
+import java.net.URL;
+import java.util.ResourceBundle;
 
 /**
  * Created by Dragos on 18.06.2016.
  */
-public class AppController extends Controller{
+public class AppController implements Initializable{
+    public Slider redSlider;
     public Pane canvasPane;
     public Canvas canvas;
     public GridPane grid;
+    public Label redSliderLabel;
+    public ImageView inportedImage;
+    public Slider greenSlider;
+    public Label greenSliderLabel;
+    public Slider blueSlider;
+    public Label blueSliderLabel;
+    public Slider opacitySlider;
+    public Label opacitySliderLabel;
 
-
-
-    @Override
-    public ActorRef action() {
-        return AppAction.getActor();
-    }
-
-    @Override
-    public void updateView(Model model) {
-
-        if(model == null || !(model instanceof AppModel)){
-            return;
-        }
-
-        AppModel data = (AppModel) model;
-
-        if(Command.IMPORT_IMAGE.equals(data.command()) && data.canvasImage() != null){
-            canvas.getGraphicsContext2D().drawImage(data.canvasImage(), 0, 0);
-        }
-
-        if(Command.CLEAR.equals(data.command())){
-            canvas.getGraphicsContext2D().clearRect(0, 0, data.canvasWidth(), data.canvasHeight());
-        }
-    }
+    private AppControllerScala appControllerScala;
 
     @Override
-    public Model getModel(Command command) {
-        return new AppModel(
-                command,
-                canvas.snapshot(null, null),
-                canvas.getWidth(),
-                canvas.getHeight(),
-                grid.getScene().getWindow()
-        );
+    public void initialize(URL location, ResourceBundle resources) {
+        appControllerScala = new AppControllerScala(new AppModelView(
+                Command.VIEW,
+                canvas,
+                canvasPane,
+                grid,
+                redSlider,
+                redSliderLabel,
+                greenSlider,
+                greenSliderLabel,
+                blueSlider,
+                blueSliderLabel,
+                opacitySlider,
+                opacitySliderLabel,
+                inportedImage
+        ));
+
+        StringConverter<Number> converter = new NumberStringConverter();
+        Bindings.bindBidirectional(redSliderLabel.textProperty(), redSlider.valueProperty(), converter);
+        Bindings.bindBidirectional(greenSliderLabel.textProperty(), greenSlider.valueProperty(), converter);
+        Bindings.bindBidirectional(blueSliderLabel.textProperty(), blueSlider.valueProperty(), converter);
+        Bindings.bindBidirectional(opacitySliderLabel.textProperty(), opacitySlider.valueProperty(), converter);
+
     }
 
-    public void onImport_Click(ActionEvent actionEvent) { execute(getModel(Command.IMPORT_IMAGE)); }
+    public void onImport_Click(ActionEvent actionEvent) { appControllerScala.onImport_Click(actionEvent);}
 
-    public void onClear_Click(ActionEvent actionEvent) { execute(getModel(Command.CLEAR)); }
+    public void onClear_Click(ActionEvent actionEvent) { appControllerScala.onClear_Click(actionEvent); }
 }

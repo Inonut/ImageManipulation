@@ -1,7 +1,10 @@
 package app.gui.model
 
 
-import javafx.scene.image.Image
+import javafx.scene.canvas.Canvas
+import javafx.scene.control.{Label, Slider}
+import javafx.scene.image.{Image, ImageView}
+import javafx.scene.layout.{GridPane, Pane}
 import javafx.stage.Window
 
 import app.util.Command
@@ -9,31 +12,35 @@ import app.util.Command
 /**
   * Created by Dragos on 18.06.2016.
   */
-class AppModel(val command: Command) extends Model{
+case class AppModel(
+                     command: Command = Command.NONE,
+                     canvasImage: Image = null,
+                     canvasWidth: Double = 0,
+                     canvasHeight: Double = 0,
+                     window: Window = null,
 
-  var canvasImage: Image = null
-  var canvasWidth: Double = 0
-  var canvasHeight: Double = 0
-  var window: Window = null
+                     image: Image = null,
+                     imageWidth: Double = 0,
+                     imageHeight: Double = 0,
 
+                     percentRed: Double = 0,
+                     percentGreen: Double = 0,
+                     percentBlue: Double = 0,
+                     opacity: Double = 0
+                   ) extends Model
 
-  def this(command: Command, canvasImage: Image, canvasWidth: Double, canvasHeight: Double, window: Window) = {
-    this(command)
-    this.canvasHeight = canvasHeight
-    this.canvasImage = canvasImage
-    this.canvasWidth = canvasWidth
-    this.window = window
-  }
-
-  def this(command: Command, canvasImage: Image) = {
-    this(command)
-    this.canvasImage = canvasImage
-  }
-
-  def this(command: Command, canvasWidth: Double, canvasHeight: Double) = {
-    this(command)
-    this.canvasHeight = canvasHeight
-    this.canvasWidth = canvasWidth
-  }
-
-}
+case class AppModelView(
+                         command: Command,
+                         canvas: Canvas,
+                         canvasPane: Pane,
+                         grid: GridPane,
+                         redSlider: Slider,
+                         redSliderLabel: Label,
+                         greenSlider: Slider,
+                         greenSliderLabel: Label,
+                         blueSlider: Slider,
+                         blueSliderLabel: Label,
+                         opacitySlider: Slider,
+                         opacitySliderLabel: Label,
+                         inportedImage: ImageView
+                       ) extends Model

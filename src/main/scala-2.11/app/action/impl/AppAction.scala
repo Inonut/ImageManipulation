@@ -1,11 +1,9 @@
 package app.action.impl
 
 
-import java.io.{File, FileInputStream}
-import javafx.scene.image.{Image, ImageView}
-import javafx.stage.FileChooser
+import javafx.scene.effect.ColorAdjust
+import javafx.scene.image.{ImageView, PixelFormat, WritableImage}
 
-import akka.actor.Actor._
 import akka.actor.{ActorRef, Props}
 import app.action.TAppController
 import app.gui.model.AppModel
@@ -17,34 +15,50 @@ import app.util.{Command, Constants, Util}
 class AppAction extends TAppController{
 
   override def receive: Receive = {
-    case data: AppModel if Command.IMPORT_IMAGE.equals(data.command) => sender ! addImage(data)
+    case data: AppModel if Command.SCALE_IMAGE.equals(data.command) && data.image != null => sender ! scaleImage(data)
     case data: AppModel if Command.CLEAR.equals(data.command) => sender ! clearCanvas(data)
-    case _ => println("CANCI!!!")
+    case data: AppModel if Command.AJUST_IMAGE.equals(data.command) && data.image != null => sender ! ajustImage(data)
+    case _ => sender ! Command.NONE
   }
 
-  override def addImage(data: AppModel): AppModel = {
-    Util.runOnFxThread {
-      new FileChooser().showOpenDialog(data.window)
-    } match {
-      case null => new AppModel(Command.IMPORT_IMAGE)
-      case file: File =>
+  override def scaleImage(data: AppModel): AppModel = {
 
-        val inputStream = new FileInputStream(file)
-        try {
+    val imageView = new ImageView
+    imageView.setFitHeight(data.imageHeight)
+    imageView.setFitWidth(data.imageWidth)
+    imageView.setImage(data.image)
 
-          val imageView = new ImageView
-          imageView.setFitHeight(data.canvasHeight)
-          imageView.setFitWidth(data.canvasWidth)
-          imageView.setImage(new Image(inputStream))
+    val newImage = Util.runOnFxThread { imageView.snapshot(null, null) }
 
-          new AppModel(Command.IMPORT_IMAGE, Util.runOnFxThread { imageView.snapshot(null, null) })
-        } finally {
-          inputStream.close()
-        }
+    AppModel(canvasImage = newImage, image = newImage)
+  }
+
+  override def clearCanvas(model: AppModel): AppModel = AppModel(command = Command.CLEAR, canvasWidth = model.canvasWidth, canvasHeight = model.canvasHeight)
+
+  override def ajustImage(model: AppModel): AppModel = {
+    val oldPixels = new Array[Int](model.imageWidth.toInt * model.imageHeight.toInt)
+    model.image.getPixelReader.getPixels(0, 0, model.imageWidth.toInt, model.imageHeight.toInt, PixelFormat.getIntArgbPreInstance, oldPixels, 0, model.imageWidth.toInt)
+
+    val newPixels = for(pixel <- oldPixels) yield {
+      val a = (((pixel >> 24) & 255) * (model.opacity / 100)).toInt
+      val r = (((pixel >> 16) & 255) * (model.percentRed / 100)).toInt
+      val g = (((pixel >> 8) & 255) * (model.percentGreen / 100)).toInt
+      val b = ((pixel & 255) * (model.percentBlue / 100)).toInt
+
+      (a << 24) | (r << 16) | (g << 8) | b
     }
-  }
 
-  override def clearCanvas(model: AppModel): AppModel = new AppModel(Command.CLEAR, model.canvasWidth, model.canvasHeight)
+
+    val writableImage = new WritableImage(model.imageWidth.toInt, model.imageHeight.toInt)
+    writableImage.getPixelWriter.setPixels(0, 0, model.imageWidth.toInt, model.imageHeight.toInt, PixelFormat.getIntArgbPreInstance, newPixels, 0, model.imageWidth.toInt)
+
+
+
+    AppModel(
+      canvasImage = writableImage,
+      percentRed = model.percentRed
+    )
+  }
 }
 
 object AppAction {
