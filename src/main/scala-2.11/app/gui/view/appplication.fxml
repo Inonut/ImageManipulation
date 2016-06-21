@@ -28,6 +28,7 @@
     <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
         <Button text="Inport" onAction="#onImport_Click"/>
         <Button text="Clear" onAction="#onClear_Click"/>
+        <Button text="Reset" onAction="#onReset_Click"/>
     </HBox>
     <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
         <HBox>
@@ -49,6 +50,27 @@
             <Label text="Opacity" />
             <Slider fx:id="opacitySlider" min="0" max="100" value="100" />
             <Label fx:id="opacitySliderLabel"/>
+        </HBox>
+
+        <HBox>
+            <Label text="Contrast" />
+            <Slider fx:id="contrastSlider" min="-1" max="1" value="0" />
+            <Label fx:id="contrastSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Hue" />
+            <Slider fx:id="hueSlider" min="-1" max="1" value="0" />
+            <Label fx:id="hueSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Brightness" />
+            <Slider fx:id="brightnessSlider" min="-1" max="1" value="0" />
+            <Label fx:id="brightnessSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Saturation" />
+            <Slider fx:id="saturationSlider" min="-1" max="1" value="0" />
+            <Label fx:id="saturationSliderLabel"/>
         </HBox>
     </VBox>
 

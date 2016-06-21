@@ -26,7 +26,12 @@ case class AppModel(
                      percentRed: Double = 0,
                      percentGreen: Double = 0,
                      percentBlue: Double = 0,
-                     opacity: Double = 0
+                     opacity: Double = 0,
+
+                     contrast: Double = 0,
+                     hue: Double = 0,
+                     brightness: Double = 0,
+                     saturation: Double = 0
                    ) extends Model
 
 case class AppModelView(
@@ -42,5 +47,13 @@ case class AppModelView(
                          blueSliderLabel: Label,
                          opacitySlider: Slider,
                          opacitySliderLabel: Label,
+                         contrastSlider: Slider,
+                         contrastSliderLabel: Label,
+                         hueSlider: Slider,
+                         hueSliderLabel: Label,
+                         brightnessSlider: Slider,
+                         brightnessSliderLabel: Label,
+                         saturationSlider: Slider,
+                         saturationSliderLabel: Label,
                          inportedImage: ImageView
                        ) extends Model

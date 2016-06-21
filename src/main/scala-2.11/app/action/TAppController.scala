@@ -11,5 +11,6 @@ trait TAppController extends Action{
 
   def clearCanvas(model: AppModel): AppModel
   def ajustImage(model: AppModel): AppModel
+  def reset(model: AppModel): AppModel
 
 }

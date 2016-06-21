@@ -18,6 +18,7 @@ class AppAction extends TAppController{
     case data: AppModel if Command.SCALE_IMAGE.equals(data.command) && data.image != null => sender ! scaleImage(data)
     case data: AppModel if Command.CLEAR.equals(data.command) => sender ! clearCanvas(data)
     case data: AppModel if Command.AJUST_IMAGE.equals(data.command) && data.image != null => sender ! ajustImage(data)
+    case data: AppModel if Command.RESET.equals(data.command) => sender ! reset(data)
     case _ => sender ! Command.NONE
   }
 
@@ -48,17 +49,39 @@ class AppAction extends TAppController{
       (a << 24) | (r << 16) | (g << 8) | b
     }
 
-
     val writableImage = new WritableImage(model.imageWidth.toInt, model.imageHeight.toInt)
     writableImage.getPixelWriter.setPixels(0, 0, model.imageWidth.toInt, model.imageHeight.toInt, PixelFormat.getIntArgbPreInstance, newPixels, 0, model.imageWidth.toInt)
 
 
+    val colorAdjust = new ColorAdjust()
+    colorAdjust.setContrast(model.contrast)
+    colorAdjust.setHue(model.hue)
+    colorAdjust.setBrightness(model.brightness)
+    colorAdjust.setSaturation(model.saturation)
+
+    val imageView = new ImageView(writableImage)
+    imageView.setEffect(colorAdjust)
+
+    val newImage = Util.runOnFxThread { imageView.snapshot(null, null) }
 
     AppModel(
-      canvasImage = writableImage,
+      canvasImage = newImage,
       percentRed = model.percentRed
     )
   }
+
+  override def reset(model: AppModel): AppModel =
+    AppModel(
+      command = Command.RESET,
+      percentRed = 100,
+      percentBlue = 100,
+      percentGreen = 100,
+      opacity = 100,
+      contrast = 0,
+      brightness = 0,
+      hue = 0,
+      saturation = 0
+    )
 }
 
 object AppAction {

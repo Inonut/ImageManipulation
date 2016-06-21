@@ -20,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Dragos on 18.06.2016.
  */
-public class AppController implements Initializable{
+public class AppController implements Initializable {
     public Slider redSlider;
     public Pane canvasPane;
     public Canvas canvas;
@@ -33,6 +33,14 @@ public class AppController implements Initializable{
     public Label blueSliderLabel;
     public Slider opacitySlider;
     public Label opacitySliderLabel;
+    public Slider contrastSlider;
+    public Label contrastSliderLabel;
+    public Slider hueSlider;
+    public Label hueSliderLabel;
+    public Slider brightnessSlider;
+    public Label brightnessSliderLabel;
+    public Slider saturationSlider;
+    public Label saturationSliderLabel;
 
     private AppControllerScala appControllerScala;
 
@@ -51,6 +59,14 @@ public class AppController implements Initializable{
                 blueSliderLabel,
                 opacitySlider,
                 opacitySliderLabel,
+                contrastSlider,
+                contrastSliderLabel,
+                hueSlider,
+                hueSliderLabel,
+                brightnessSlider,
+                brightnessSliderLabel,
+                saturationSlider,
+                saturationSliderLabel,
                 inportedImage
         ));
 
@@ -60,9 +76,22 @@ public class AppController implements Initializable{
         Bindings.bindBidirectional(blueSliderLabel.textProperty(), blueSlider.valueProperty(), converter);
         Bindings.bindBidirectional(opacitySliderLabel.textProperty(), opacitySlider.valueProperty(), converter);
 
+        Bindings.bindBidirectional(contrastSliderLabel.textProperty(), contrastSlider.valueProperty(), converter);
+        Bindings.bindBidirectional(hueSliderLabel.textProperty(), hueSlider.valueProperty(), converter);
+        Bindings.bindBidirectional(brightnessSliderLabel.textProperty(), brightnessSlider.valueProperty(), converter);
+        Bindings.bindBidirectional(saturationSliderLabel.textProperty(), saturationSlider.valueProperty(), converter);
+
     }
 
-    public void onImport_Click(ActionEvent actionEvent) { appControllerScala.onImport_Click(actionEvent);}
+    public void onImport_Click(ActionEvent actionEvent) {
+        appControllerScala.onImport_Click(actionEvent);
+    }
 
-    public void onClear_Click(ActionEvent actionEvent) { appControllerScala.onClear_Click(actionEvent); }
+    public void onClear_Click(ActionEvent actionEvent) {
+        appControllerScala.onClear_Click(actionEvent);
+    }
+
+    public void onReset_Click(ActionEvent actionEvent) {
+        appControllerScala.onReset_Click(actionEvent);
+    }
 }

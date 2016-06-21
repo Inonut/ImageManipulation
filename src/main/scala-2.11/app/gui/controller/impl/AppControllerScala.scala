@@ -33,6 +33,18 @@ class AppControllerScala(appModelView: AppModelView) extends Controller {
         appModelView.canvas.getGraphicsContext2D.clearRect(0, 0, data.canvasWidth, data.canvasHeight)
         appModelView.inportedImage.setImage(null)
       }
+
+      if(Command.RESET.equals(data.command)){
+        appModelView.redSlider.setValue(data.percentRed)
+        appModelView.greenSlider.setValue(data.percentGreen)
+        appModelView.blueSlider.setValue(data.percentBlue)
+        appModelView.opacitySlider.setValue(data.opacity)
+
+        appModelView.contrastSlider.setValue(data.contrast)
+        appModelView.hueSlider.setValue(data.hue)
+        appModelView.brightnessSlider.setValue(data.brightness)
+        appModelView.saturationSlider.setValue(data.saturation)
+      }
   }
 
   def onImport_Click(actionEvent: ActionEvent): Unit = {
@@ -53,59 +65,39 @@ class AppControllerScala(appModelView: AppModelView) extends Controller {
 
   def onClear_Click(actionEvent: ActionEvent): Unit = execute(AppModel(command = Command.CLEAR, canvasWidth = appModelView.canvas.getWidth, canvasHeight = appModelView.canvas.getHeight))
 
-  appModelView.redSlider.valueProperty.addListener((observable: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) => {
+  def onReset_Click(actionEvent: ActionEvent) {
+    execute(AppModel(
+      command = Command.RESET
+    ))
+  }
 
-        execute( AppModel(
-          command = Command.AJUST_IMAGE,
-          percentRed = newValue.doubleValue(),
-          percentGreen = appModelView.greenSlider.getValue,
-          percentBlue = appModelView.blueSlider.getValue,
-          opacity = appModelView.opacitySlider.getValue,
-          image = appModelView.inportedImage.getImage,
-          imageHeight = try appModelView.inportedImage.getImage.getWidth catch{case e: Throwable => 0},
-          imageWidth = try appModelView.inportedImage.getImage.getHeight catch{case e: Throwable => 0}
-        ))
-  })
-
-  appModelView.greenSlider.valueProperty.addListener((observable: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) => {
-
-        execute( AppModel(
-          command = Command.AJUST_IMAGE,
-          percentRed = appModelView.redSlider.getValue,
-          percentGreen = newValue.doubleValue(),
-          percentBlue = appModelView.blueSlider.getValue,
-          opacity = appModelView.opacitySlider.getValue,
-          image = appModelView.inportedImage.getImage,
-          imageHeight = try appModelView.inportedImage.getImage.getWidth catch{case e: Throwable => 0},
-          imageWidth = try appModelView.inportedImage.getImage.getHeight catch{case e: Throwable => 0}
-        ))
-  })
-
-  appModelView.blueSlider.valueProperty.addListener((observable: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) => {
-
-        execute( AppModel(
-          command = Command.AJUST_IMAGE,
-          percentRed = appModelView.redSlider.getValue,
-          percentGreen = appModelView.greenSlider.getValue,
-          percentBlue = newValue.doubleValue(),
-          opacity = appModelView.opacitySlider.getValue,
-          image = appModelView.inportedImage.getImage,
-          imageHeight = try appModelView.inportedImage.getImage.getWidth catch{case e: Throwable => 0},
-          imageWidth = try appModelView.inportedImage.getImage.getHeight catch{case e: Throwable => 0}
-        ))
-  })
-
-  appModelView.opacitySlider.valueProperty.addListener((observable: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) => {
+  def changeImageColor = (observable: ObservableValue[_ <: Number], oldValue: Number, newValue: Number) => {
 
     execute( AppModel(
       command = Command.AJUST_IMAGE,
       percentRed = appModelView.redSlider.getValue,
       percentGreen = appModelView.greenSlider.getValue,
       percentBlue = appModelView.blueSlider.getValue,
-      opacity = newValue.doubleValue(),
+      opacity = appModelView.opacitySlider.getValue,
+
+      contrast = appModelView.contrastSlider.getValue,
+      hue = appModelView.hueSlider.getValue,
+      brightness = appModelView.brightnessSlider.getValue,
+      saturation = appModelView.saturationSlider.getValue,
+
       image = appModelView.inportedImage.getImage,
       imageHeight = try appModelView.inportedImage.getImage.getWidth catch{case e: Throwable => 0},
       imageWidth = try appModelView.inportedImage.getImage.getHeight catch{case e: Throwable => 0}
     ))
-  })
+  }
+
+  appModelView.redSlider.valueProperty.addListener(changeImageColor)
+  appModelView.blueSlider.valueProperty.addListener(changeImageColor)
+  appModelView.greenSlider.valueProperty.addListener(changeImageColor)
+  appModelView.opacitySlider.valueProperty.addListener(changeImageColor)
+
+  appModelView.saturationSlider.valueProperty.addListener(changeImageColor)
+  appModelView.contrastSlider.valueProperty.addListener(changeImageColor)
+  appModelView.hueSlider.valueProperty.addListener(changeImageColor)
+  appModelView.brightnessSlider.valueProperty.addListener(changeImageColor)
 }
