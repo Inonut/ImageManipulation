@@ -1,0 +1,69 @@
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<GridPane fx:id="grid" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app2.gui.controller.AppController">
+
+    <columnConstraints>
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
+
+    <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="pane" fx:id="canvasPane">
+        <Canvas fx:id="canvas" width="${canvasPane.width}" height="${canvasPane.height}"/>
+        <ImageView fx:id="inportedImage" visible="false" />
+    </Pane>
+    <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <Button text="Inport" fx:id="inportButton"/>
+        <Button text="Clear" fx:id="clearButton"/>
+        <Button text="Reset" fx:id="resetButton"/>
+    </HBox>
+    <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
+        <HBox>
+            <Label text="Red" />
+            <Slider fx:id="redSlider" min="0" max="100" value="100" />
+            <Label fx:id="redSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Green" />
+            <Slider fx:id="greenSlider" min="0" max="100" value="100" />
+            <Label fx:id="greenSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Blue" />
+            <Slider fx:id="blueSlider" min="0" max="100" value="100" />
+            <Label fx:id="blueSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Opacity" />
+            <Slider fx:id="opacitySlider" min="0" max="100" value="100" />
+            <Label fx:id="opacitySliderLabel"/>
+        </HBox>
+
+        <HBox>
+            <Label text="Contrast" />
+            <Slider fx:id="contrastSlider" min="-1" max="1" value="0" />
+            <Label fx:id="contrastSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Hue" />
+            <Slider fx:id="hueSlider" min="-1" max="1" value="0" />
+            <Label fx:id="hueSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Brightness" />
+            <Slider fx:id="brightnessSlider" min="-1" max="1" value="0" />
+            <Label fx:id="brightnessSliderLabel"/>
+        </HBox>
+        <HBox>
+            <Label text="Saturation" />
+            <Slider fx:id="saturationSlider" min="-1" max="1" value="0" />
+            <Label fx:id="saturationSliderLabel"/>
+        </HBox>
+    </VBox>
+
+</GridPane>

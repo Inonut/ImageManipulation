@@ -28,7 +28,7 @@ abstract class Controller {
   def execute(modelParam: Model): Unit = {
     action ? modelParam map {
       case modelReceive: Model => Util.runOnFxThread { owner.updateView(modelReceive) }
-      case _ => println("Nu s-a primit un Model.")
+      case _ => println("Nu s-a putut updatat modelul.")
     } recover {
       case e => e.printStackTrace()
     }

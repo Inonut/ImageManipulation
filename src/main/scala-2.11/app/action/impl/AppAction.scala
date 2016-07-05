@@ -4,7 +4,7 @@ package app.action.impl
 import javafx.scene.effect.ColorAdjust
 import javafx.scene.image.{ImageView, PixelFormat, WritableImage}
 
-import akka.actor.{ActorRef, Props}
+import akka.actor.{Actor, ActorRef, Props}
 import app.action.TAppController
 import app.gui.model.AppModel
 import app.util.{Command, Constants, Util}
@@ -12,7 +12,7 @@ import app.util.{Command, Constants, Util}
 /**
   * Created by Dragos on 18.06.2016.
   */
-class AppAction extends TAppController{
+class AppAction extends Actor with TAppController {
 
   override def receive: Receive = {
     case data: AppModel if Command.SCALE_IMAGE.equals(data.command) && data.image != null => sender ! scaleImage(data)

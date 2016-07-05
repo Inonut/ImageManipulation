@@ -1,4 +1,4 @@
-package app2.gui.util
+package app2.util
 
 import akka.actor.ActorSystem
 
