@@ -13,7 +13,7 @@ import app2.gui.controller.AppController
 import app2.gui.model.{AppModel, Model}
 import app2.util.Util
 import app2.util.Util._
-
+import scala.concurrent.ExecutionContext.Implicits.global
 /**
   * Created by Dragos on 7/5/2016.
   */
@@ -35,8 +35,11 @@ class AppMV(implicit appController: AppController) extends ModelView{
     Bindings.bindBidirectional(appController.saturationSliderLabel.textProperty, appController.saturationSlider.valueProperty, converter)
 
     appController.inportButton.setOnAction((event: ActionEvent) => {
-      inportImage.executeAsync().map{ case model: Model => Util.runOnFxThread{this.updateView(model)}}.recover{ case e => e.printStackTrace()}
-      print()
+      inportImage.executeAsync().map{
+        case model: Model => Util.runOnFxThread{this.updateView(model)}
+      }.recover{
+        case e => e.printStackTrace()
+      }
     })
     //appController.clearButton.setOnAction((event: ActionEvent) => onClear_Click())
     //appController.resetButton.setOnAction((event: ActionEvent) => onReset_Click())

@@ -13,7 +13,7 @@ object Util {
     case params => params
   }
 
-  implicit def actionEvent[T <: Event](fct: T => Unit): EventHandler[T] = new EventHandler[T] {
+  implicit def actionEvent[T <: Event](fct: T => Any): EventHandler[T] = new EventHandler[T] {
     override def handle(event: T): Unit = fct(event)
   }
 
