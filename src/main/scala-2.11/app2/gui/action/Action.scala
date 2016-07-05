@@ -3,8 +3,9 @@ package app2.gui.action
 import java.util.concurrent.TimeUnit
 
 import akka.util.Timeout
-import async.Async.async
+import app2.gui.model.Model
 
+import async.Async.async
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -15,11 +16,10 @@ trait Action {
 
   protected implicit val timeout = new Timeout(10, TimeUnit.SECONDS)
 
-  def execute: PartialFunction[Any, Any]
+  val execute: PartialFunction[Any, Any]
 
-  def executeAsync(): Future[Any] = {
-    async{
-      this.execute()
-    }
-  }
+  def executeAsync(model: Any): Future[Any] = async { this.execute(model) }
+
 }
+
+

@@ -34,21 +34,14 @@ class AppMV(implicit appController: AppController) extends ModelView{
     Bindings.bindBidirectional(appController.brightnessSliderLabel.textProperty, appController.brightnessSlider.valueProperty, converter)
     Bindings.bindBidirectional(appController.saturationSliderLabel.textProperty, appController.saturationSlider.valueProperty, converter)
 
-    appController.inportButton.setOnAction((event: ActionEvent) => {
-      inportImage.executeAsync().map{
-        case model: Model => Util.runOnFxThread{this.updateView(model)}
-      }.recover{
-        case e => e.printStackTrace()
-      }
-    })
+    appController.inportButton.setOnAction((event: ActionEvent) => inportImage.executeAsync() map onSuccess recover onError)
     //appController.clearButton.setOnAction((event: ActionEvent) => onClear_Click())
     //appController.resetButton.setOnAction((event: ActionEvent) => onReset_Click())
-
-
   }
 
-  override def updateView: PartialFunction[Model, Unit] = {
+  override val updateView: PartialFunction[Model, Unit] = {
     case appModel: AppModel =>
       println("updated")
   }
+
 }

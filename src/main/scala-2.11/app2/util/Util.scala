@@ -1,6 +1,8 @@
 package app2.util
 
+import java.io.{File, FileInputStream}
 import javafx.event.{Event, EventHandler}
+import javafx.scene.image.Image
 
 import com.sun.javafx.application.PlatformImpl
 
@@ -23,5 +25,12 @@ object Util {
       override def run(): Unit = respons = fct
     })
     respons
+  }
+
+  def getImageFromFile(file: File): Image = {
+
+    val inputStream = new FileInputStream(file)
+    try new Image(inputStream)
+    finally inputStream.close()
   }
 }
