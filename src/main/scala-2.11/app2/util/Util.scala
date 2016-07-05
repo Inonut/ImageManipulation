@@ -4,6 +4,7 @@ import java.io.{File, FileInputStream}
 import javafx.event.{Event, EventHandler}
 import javafx.scene.image.Image
 
+import app2.gui.action.InportAction
 import com.sun.javafx.application.PlatformImpl
 
 /**
@@ -32,5 +33,10 @@ object Util {
     val inputStream = new FileInputStream(file)
     try new Image(inputStream)
     finally inputStream.close()
+  }
+
+  def testCeVreau = {
+    new InportAction execute _ andThan
+      new InportAction executeAsync _
   }
 }
