@@ -1,4 +1,4 @@
-package app2.gui.action
+package app2.action
 
 import app2.gui.model.{AppModel, Model}
 
@@ -8,6 +8,8 @@ import app2.gui.model.{AppModel, Model}
 class InportAction extends Action{
 
   override val execute: PartialFunction[Any, Any] = {
-    case model => AppModel()
+    case model =>
+      Thread.sleep(5000)
+      AppModel()
   }
 }

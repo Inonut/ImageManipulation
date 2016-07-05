@@ -8,7 +8,7 @@ import javafx.event.ActionEvent
 import javafx.util.StringConverter
 import javafx.util.converter.NumberStringConverter
 
-import app2.gui.action.{Action, InportAction}
+import app2.action.{Action, InportAction}
 import app2.gui.controller.AppController
 import app2.gui.model.{AppModel, Model}
 import app2.util.Util

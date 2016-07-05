@@ -1,4 +1,4 @@
-package app2.gui.action
+package app2.action
 
 import java.util.concurrent.TimeUnit
 
@@ -16,10 +16,24 @@ trait Action {
 
   protected implicit val timeout = new Timeout(10, TimeUnit.SECONDS)
 
-  val execute: PartialFunction[Any, Any]
+  protected val execute: PartialFunction[Any, Any]
 
   def executeAsync(model: Any): Future[Any] = async { this.execute(model) }
 
+  def executeSync(model: Any): Future[Any] = {
+
+    var result: Any = null
+    var exception: Exception = null
+
+    try { result = this.execute(model) }
+    catch { case ex: Exception => exception = ex }
+
+    if(exception != null){
+      async { throw exception }
+    } else {
+      async { result }
+    }
+  }
 }
 
 
