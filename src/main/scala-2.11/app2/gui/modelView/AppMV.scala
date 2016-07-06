@@ -3,6 +3,7 @@ package app2.gui.modelView
 import javafx.beans.binding.Bindings
 import javafx.beans.value.ObservableValue
 import javafx.event.ActionEvent
+import javafx.scene.image.Image
 import javafx.util.StringConverter
 import javafx.util.converter.NumberStringConverter
 
@@ -80,25 +81,33 @@ class AppMV(implicit appController: AppController) extends ModelView{
     case _ => println("nothing to update")
   }
 
-
   val scaleImageUtil: PartialFunction[Any, Unit] = {
-    case response: AjustImageModelResult => scaleImageAction.executeAsync(ScaleImageModelParams(response.image, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
-    case _ => scaleImageAction.executeAsync(ScaleImageModelParams(appController.inportedImage, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
+    case response: AjustImageModelResult => scaleImage(response.image)
+    case _ => scaleImage(appController.inportedImage)
+  }
+
+  def scaleImage(image: Image): Unit = {
+    if(image != null) {
+      scaleImageAction.executeAsync(ScaleImageModelParams(image, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
+    }
   }
 
   val adjustImageUtil: PartialFunction[Any, Unit] = {
-    case _ => adjustImageAction.executeAsync(AjustImageModelParams(
-      appController.inportedImage,
-      appController.inportedImage.getWidth,
-      appController.inportedImage.getHeight,
-      appController.redSlider.getValue,
-      appController.blueSlider.getValue,
-      appController.greenSlider.getValue,
-      appController.opacitySlider.getValue,
-      appController.contrastSlider.getValue,
-      appController.brightnessSlider.getValue,
-      appController.hueSlider.getValue,
-      appController.saturationSlider.getValue
-    )) map scaleImageUtil
+    case _ =>
+      if(appController.inportedImage != null){
+        adjustImageAction.executeAsync(AjustImageModelParams(
+          appController.inportedImage,
+          appController.inportedImage.getWidth,
+          appController.inportedImage.getHeight,
+          appController.redSlider.getValue,
+          appController.blueSlider.getValue,
+          appController.greenSlider.getValue,
+          appController.opacitySlider.getValue,
+          appController.contrastSlider.getValue,
+          appController.brightnessSlider.getValue,
+          appController.hueSlider.getValue,
+          appController.saturationSlider.getValue
+        )) map scaleImageUtil
+      }
   }
 }
