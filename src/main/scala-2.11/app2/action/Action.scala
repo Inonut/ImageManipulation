@@ -23,5 +23,3 @@ trait Action[T, R] {
 
   def executeSync(params: T): R = this.execute(params)
 }
-
-case class Complete[T](message: Message, obj: T)
