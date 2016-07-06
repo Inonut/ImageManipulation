@@ -1,12 +1,14 @@
 package app2.gui.controller;
 
 import app2.gui.modelView.AppMV;
+import app2.gui.modelView.ModelView;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -25,7 +27,6 @@ public class AppController implements Initializable {
     @FXML public Canvas canvas;
     @FXML public GridPane grid;
     @FXML public Label redSliderLabel;
-    @FXML public ImageView inportedImage;
     @FXML public Slider greenSlider;
     @FXML public Label greenSliderLabel;
     @FXML public Slider blueSlider;
@@ -43,8 +44,9 @@ public class AppController implements Initializable {
     @FXML public Button inportButton;
     @FXML public Button clearButton;
     @FXML public Button resetButton;
+    @FXML public Image inportedImage;
 
-    private AppMV appMV = new AppMV(this);
+    private ModelView appMV = new AppMV(this);
 
     @Override
     public void initialize(URL location, ResourceBundle resources) { appMV.binding(); }

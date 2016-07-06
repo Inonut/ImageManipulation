@@ -4,6 +4,7 @@ import java.util.concurrent.TimeUnit
 
 import akka.util.Timeout
 import app2.gui.model.Model
+import app2.util.Message
 
 import async.Async.async
 import scala.concurrent.Future
@@ -12,28 +13,15 @@ import scala.concurrent.ExecutionContext.Implicits.global
 /**
   * Created by Dragos on 7/5/2016.
   */
-trait Action {
+trait Action[T, R] {
 
   protected implicit val timeout = new Timeout(10, TimeUnit.SECONDS)
 
-  protected val execute: PartialFunction[Any, Any]
+  protected def execute(params: T): R
 
-  def executeAsync(model: Any): Future[Any] = async { this.execute(model) }
+  def executeAsync(params: T): Future[R] = async { this.execute(params) }
 
-  def executeSync(model: Any): Future[Any] = {
-
-    var result: Any = null
-    var exception: Exception = null
-
-    try { result = this.execute(model) }
-    catch { case ex: Exception => exception = ex }
-
-    if(exception != null){
-      async { throw exception }
-    } else {
-      async { result }
-    }
-  }
+  def executeSync(params: T): R = this.execute(params)
 }
 
-
+case class Complete[T](message: Message, obj: T)

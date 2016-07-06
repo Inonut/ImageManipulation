@@ -13,9 +13,8 @@
         <RowConstraints />
     </rowConstraints>
 
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="pane" fx:id="canvasPane">
+    <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="pane" fx:id="canvasPane" width="${grid.width}" height="${grid.height}" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
         <Canvas fx:id="canvas" width="${canvasPane.width}" height="${canvasPane.height}"/>
-        <ImageView fx:id="inportedImage" visible="false" />
     </Pane>
     <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
         <Button text="Inport" fx:id="inportButton"/>
