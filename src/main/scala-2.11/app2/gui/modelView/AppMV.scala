@@ -12,7 +12,9 @@ import app2.gui.controller.AppController
 import app2.gui.model._
 import app2.util.Util._
 
+import async.Async.async
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 /**
   * Created by Dragos on 7/5/2016.
   */
@@ -25,7 +27,7 @@ class AppMV(implicit appController: AppController) extends ModelView{
   val resetValuesAction = new ResetValuesAction()
   val adjustImageAction = new AjustImageAction()
 
-  def onInport_Click(): Unit =  inportImageAction.executeAsync(InportImageModelParams(appController.grid.getScene.getWindow)) map onSuccess recover onError map scaleImageUtil
+  def onInport_Click(): Unit =  inportImageAction.executeAsync(InportImageModelParams(appController.grid.getScene.getWindow)) map onSuccess flatMap scaleImageUtil recover onError
 
   def onClear_Click(): Unit = clearImageAction.executeAsync(ClearImageModelParams(appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
 
@@ -59,7 +61,7 @@ class AppMV(implicit appController: AppController) extends ModelView{
     appController.resetButton.setOnAction((event: ActionEvent) => onReset_Click())
   }
 
-  override val updateView: PartialFunction[Any, Unit] = {
+  override def updateView: PartialFunction[Any, Unit] = {
     case response: ScaleImageModelResult =>
       appController.canvas.getGraphicsContext2D.drawImage(response.image, 0, 0)
     case response: InportImageModelResult =>
@@ -81,18 +83,16 @@ class AppMV(implicit appController: AppController) extends ModelView{
     case _ => println("nothing to update")
   }
 
-  val scaleImageUtil: PartialFunction[Any, Unit] = {
+  def scaleImageUtil: PartialFunction[Any, Future[Model]] = {
     case response: AjustImageModelResult => scaleImage(response.image)
     case _ => scaleImage(appController.inportedImage)
   }
 
-  def scaleImage(image: Image): Unit = {
-    if(image != null) {
-      scaleImageAction.executeAsync(ScaleImageModelParams(image, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
-    }
+  def scaleImage(image: Image): Future[Model] = {
+    scaleImageAction.executeAsync(ScaleImageModelParams(image, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
   }
 
-  val adjustImageUtil: PartialFunction[Any, Unit] = {
+  def adjustImageUtil: PartialFunction[Any, Unit] = {
     case _ =>
       if(appController.inportedImage != null){
         adjustImageAction.executeAsync(AjustImageModelParams(
@@ -107,7 +107,8 @@ class AppMV(implicit appController: AppController) extends ModelView{
           appController.brightnessSlider.getValue,
           appController.hueSlider.getValue,
           appController.saturationSlider.getValue
-        )) map scaleImageUtil
+        )) flatMap scaleImageUtil recover onError
       }
   }
+
 }

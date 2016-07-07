@@ -13,14 +13,17 @@ import app2.util.Util
   */
 trait ModelView {
 
-  val updateView: PartialFunction[Any, Unit]
+  def updateView: PartialFunction[Model, Unit]
 
-  val onSuccess: (Any) => Any = {
-    case model => Util.runOnFxThread{this.updateView(model)}
-    case _ => println("----")
+  def onSuccess[T]: Model => T = model => {
+    Util.runOnFxThread {this.updateView(model)}
+    null.asInstanceOf[T]
   }
-  val onError: PartialFunction[Throwable, Any] = {
-    case e => e.printStackTrace()
+
+  def onError[T]: PartialFunction[Throwable, T] = {
+    case e =>
+      e.printStackTrace()
+      null.asInstanceOf[T]
   }
 
   def binding(): Unit
