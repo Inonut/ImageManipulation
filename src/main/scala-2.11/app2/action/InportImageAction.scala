@@ -15,5 +15,13 @@ class InportImageAction extends Action[InportImageModelParams, InportImageModelR
 
   val fileChooser = new FileChooser
 
-  override protected def execute(model: InportImageModelParams): InportImageModelResult = InportImageModelResult(Util.getImageFromFile(Util.runOnFxThread{fileChooser.showOpenDialog(model.window)}))
+  override protected def execute(model: InportImageModelParams): InportImageModelResult = {
+    val image = Util.getImageFromFile(Util.runOnFxThread{fileChooser.showOpenDialog(model.window)})
+
+    if(image == null){
+      return null
+    }
+
+    InportImageModelResult(image)
+  }
 }

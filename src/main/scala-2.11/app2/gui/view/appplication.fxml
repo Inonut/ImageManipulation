@@ -20,6 +20,7 @@
         <Button text="Inport" fx:id="inportButton"/>
         <Button text="Clear" fx:id="clearButton"/>
         <Button text="Reset" fx:id="resetButton"/>
+        <Button text="Refresh" fx:id="refreshButton"/>
     </HBox>
     <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
         <HBox>

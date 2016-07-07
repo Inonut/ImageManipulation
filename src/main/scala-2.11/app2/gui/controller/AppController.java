@@ -45,6 +45,7 @@ public class AppController implements Initializable {
     @FXML public Button clearButton;
     @FXML public Button resetButton;
     @FXML public Image inportedImage;
+    @FXML public Button refreshButton;
 
     private ModelView appMV = new AppMV(this);
 

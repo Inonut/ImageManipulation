@@ -33,6 +33,8 @@ class AppMV(implicit appController: AppController) extends ModelView{
 
   def onReset_Click() = resetValuesAction.executeAsync(ResetValuesModelParams()) map onSuccess recover onError
 
+  def onRefresh_Click() = adjustImageUtil()
+
   override def binding(): Unit = {
 
     Bindings.bindBidirectional(appController.redSliderLabel.textProperty, appController.redSlider.valueProperty, converter)
@@ -59,6 +61,7 @@ class AppMV(implicit appController: AppController) extends ModelView{
     appController.inportButton.setOnAction((event: ActionEvent) => onInport_Click())
     appController.clearButton.setOnAction((event: ActionEvent) => onClear_Click())
     appController.resetButton.setOnAction((event: ActionEvent) => onReset_Click())
+    appController.refreshButton.setOnAction((event: ActionEvent) => onRefresh_Click())
   }
 
   override def updateView: PartialFunction[Any, Unit] = {
@@ -82,6 +85,9 @@ class AppMV(implicit appController: AppController) extends ModelView{
       appController.canvas.getGraphicsContext2D.drawImage(response.image, 0, 0)
     case _ => println("nothing to update")
   }
+
+
+/**** chesti care nu imi plac... ***/
 
   def scaleImageUtil: PartialFunction[Any, Future[Model]] = {
     case response: AjustImageModelResult => scaleImage(response.image)
