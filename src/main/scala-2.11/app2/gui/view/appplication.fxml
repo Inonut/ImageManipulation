@@ -2,6 +2,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.Color?>
 <GridPane fx:id="grid" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app2.gui.controller.AppController">
 
     <columnConstraints>
@@ -21,6 +22,7 @@
         <Button text="Clear" fx:id="clearButton"/>
         <Button text="Reset" fx:id="resetButton"/>
         <Button text="Refresh" fx:id="refreshButton"/>
+        <ColorPicker fx:id="colorPicker" />
     </HBox>
     <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
         <HBox>

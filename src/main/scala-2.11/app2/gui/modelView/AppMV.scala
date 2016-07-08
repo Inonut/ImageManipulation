@@ -1,15 +1,17 @@
 package app2.gui.modelView
 
+import java.awt.event.MouseEvent
 import javafx.beans.binding.Bindings
 import javafx.beans.value.ObservableValue
-import javafx.event.ActionEvent
+import javafx.event.{ActionEvent, EventHandler}
 import javafx.scene.image.Image
+import javafx.scene.input.MouseEvent
 import javafx.util.StringConverter
 import javafx.util.converter.NumberStringConverter
 
 import app2.action._
 import app2.gui.controller.AppController
-import app2.gui.model._
+import app2.action.model._
 import app2.util.Util._
 
 import async.Async.async
@@ -34,6 +36,8 @@ class AppMV(implicit appController: AppController) extends ModelView{
   def onReset_Click() = resetValuesAction.executeAsync(ResetValuesModelParams()) map onSuccess recover onError
 
   def onRefresh_Click() = adjustImageUtil()
+
+  def onCanvas_MouseClick() = ???
 
   override def binding(): Unit = {
 
@@ -62,7 +66,11 @@ class AppMV(implicit appController: AppController) extends ModelView{
     appController.clearButton.setOnAction((event: ActionEvent) => onClear_Click())
     appController.resetButton.setOnAction((event: ActionEvent) => onReset_Click())
     appController.refreshButton.setOnAction((event: ActionEvent) => onRefresh_Click())
+    
+
   }
+
+  override def init(): Unit = onReset_Click()
 
   override def updateView: PartialFunction[Any, Unit] = {
     case response: ScaleImageModelResult =>
@@ -81,6 +89,7 @@ class AppMV(implicit appController: AppController) extends ModelView{
       appController.hueSlider.setValue(response.hue)
       appController.brightnessSlider.setValue(response.brightness)
       appController.saturationSlider.setValue(response.saturation)
+      appController.colorPicker.setValue(response.color)
     case response: AjustImageModelResult =>
       appController.canvas.getGraphicsContext2D.drawImage(response.image, 0, 0)
     case _ => println("nothing to update")

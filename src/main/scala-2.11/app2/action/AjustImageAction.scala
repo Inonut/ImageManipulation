@@ -3,7 +3,7 @@ package app2.action
 import javafx.scene.effect.ColorAdjust
 import javafx.scene.image.{ImageView, PixelFormat, WritableImage}
 
-import app2.gui.model.{AjustImageModelParams, AjustImageModelResult}
+import app2.action.model.{AjustImageModelParams, AjustImageModelResult}
 import app2.util.Util
 
 /**

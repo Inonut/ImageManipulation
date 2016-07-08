@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Button;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
  * Created by Dragos on 7/5/2016.
  */
 public class AppController implements Initializable {
+
+    @FXML public Image inportedImage;
 
     @FXML public Slider redSlider;
     @FXML public Pane canvasPane;
@@ -44,11 +47,16 @@ public class AppController implements Initializable {
     @FXML public Button inportButton;
     @FXML public Button clearButton;
     @FXML public Button resetButton;
-    @FXML public Image inportedImage;
     @FXML public Button refreshButton;
+    @FXML public ColorPicker colorPicker;
 
     private ModelView appMV = new AppMV(this);
 
     @Override
-    public void initialize(URL location, ResourceBundle resources) { appMV.binding(); }
+    public void initialize(URL location, ResourceBundle resources) {
+        appMV.init();
+        appMV.binding();
+
+
+    }
 }

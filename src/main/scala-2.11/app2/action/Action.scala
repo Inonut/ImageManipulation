@@ -3,7 +3,7 @@ package app2.action
 import java.util.concurrent.TimeUnit
 
 import akka.util.Timeout
-import app2.gui.model.Model
+import app2.action.model.Model
 import app2.util.Message
 
 import async.Async.async

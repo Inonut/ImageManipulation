@@ -2,7 +2,7 @@ package app2.action
 
 import javafx.scene.image.{Image, ImageView}
 
-import app2.gui.model.{ScaleImageModelParams, ScaleImageModelResult}
+import app2.action.model.{ScaleImageModelParams, ScaleImageModelResult}
 import app2.util.{Message, Util}
 
 /**

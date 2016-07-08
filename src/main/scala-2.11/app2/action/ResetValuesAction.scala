@@ -1,6 +1,8 @@
 package app2.action
 
-import app2.gui.model.{ResetValuesModelParams, ResetValuesModelResult}
+import javafx.scene.paint.Color
+
+import app2.action.model.{ResetValuesModelParams, ResetValuesModelResult}
 import app2.util.Message
 
 /**
@@ -8,5 +10,5 @@ import app2.util.Message
   */
 class ResetValuesAction extends Action[ResetValuesModelParams, ResetValuesModelResult] {
 
-  override protected def execute(params: ResetValuesModelParams): ResetValuesModelResult = ResetValuesModelResult(100,100,100,100,0,0,0,0)
+  override protected def execute(params: ResetValuesModelParams): ResetValuesModelResult = ResetValuesModelResult(100,100,100,100,0,0,0,0, Color.RED)
 }

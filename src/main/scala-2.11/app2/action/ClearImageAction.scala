@@ -3,7 +3,7 @@ package app2.action
 import javafx.scene.image.Image
 import javafx.stage.Window
 
-import app2.gui.model.{ClearImageModelParams, ClearImageModelResult}
+import app2.action.model.{ClearImageModelParams, ClearImageModelResult}
 import app2.util.Message
 
 /**

@@ -5,6 +5,7 @@ import java.util.function.Consumer
 import javafx.beans.value.{ChangeListener, ObservableValue}
 import javafx.event.{Event, EventHandler}
 import javafx.scene.image.Image
+import javafx.scene.input.MouseEvent
 
 import app2.action.InportImageAction
 import com.sun.javafx.application.PlatformImpl
@@ -19,6 +20,10 @@ object Util {
   }
 
   implicit def actionEvent[T <: Event](fct: T => Any): EventHandler[T] = new EventHandler[T] {
+    override def handle(event: T): Unit = fct(event)
+  }
+
+  implicit def actionEvent2[T >: MouseEvent](fct: T => Any): EventHandler[T] = new EventHandler[T] {
     override def handle(event: T): Unit = fct(event)
   }
 

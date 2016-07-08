@@ -5,7 +5,7 @@ import javafx.fxml.Initializable
 
 import akka.actor.ActorRef
 import akka.util.Timeout
-import app2.gui.model.Model
+import app2.action.model.Model
 import app2.util.Util
 
 /**
@@ -27,4 +27,6 @@ trait ModelView {
   }
 
   def binding(): Unit
+
+  def init(): Unit
 }

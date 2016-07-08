@@ -5,7 +5,7 @@ import java.util.Optional
 import javafx.scene.image.Image
 import javafx.stage.{FileChooser, Window}
 
-import app2.gui.model.{InportImageModelParams, InportImageModelResult, Model}
+import app2.action.model.{InportImageModelParams, InportImageModelResult, Model}
 import app2.util.{Message, Util}
 
 /**
