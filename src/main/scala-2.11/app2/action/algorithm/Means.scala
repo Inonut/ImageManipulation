@@ -10,7 +10,7 @@ import app2.event.Event
   */
 trait Means[T, R] extends Action[T, R]{
 
-  protected val isRunning = new SimpleBooleanProperty(true)
+  protected val isRunning = new SimpleBooleanProperty(false)
 
   protected val afterIterationEvent = new Event[T]
 
@@ -26,7 +26,7 @@ trait Means[T, R] extends Action[T, R]{
 
   def prosses(params: T): R
 
-  override def execute(params: T): R = {
+  protected override def execute(params: T): R = {
     resetEvent addListener(_ => { prosses(params) })
 
     prosses(params)

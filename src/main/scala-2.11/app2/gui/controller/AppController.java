@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import scala.Function1;
 
 import java.net.URL;
@@ -28,7 +29,7 @@ public class AppController implements Initializable {
     @FXML public Slider redSlider;
     @FXML public Pane canvasPane;
     @FXML public Canvas canvas;
-    @FXML public GridPane grid;
+    @FXML public VBox grid;
     @FXML public Label redSliderLabel;
     @FXML public Slider greenSlider;
     @FXML public Label greenSliderLabel;
@@ -49,6 +50,10 @@ public class AppController implements Initializable {
     @FXML public Button resetButton;
     @FXML public Button refreshButton;
     @FXML public ColorPicker colorPicker;
+    @FXML public Button kMeansStratButton;
+    @FXML public Button kMeansStopButton;
+    @FXML public Button kMeansRestartButton;
+    @FXML public Button kMeansPlayButton;
 
     private ModelView appMV = new AppMV(this);
 
@@ -56,7 +61,5 @@ public class AppController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         appMV.init();
         appMV.binding();
-
-
     }
 }

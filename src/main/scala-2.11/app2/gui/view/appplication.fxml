@@ -3,28 +3,25 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.Color?>
-<GridPane fx:id="grid" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app2.gui.controller.AppController">
+<VBox fx:id="grid" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="app2.gui.controller.AppController">
 
-    <columnConstraints>
-        <ColumnConstraints />
-    </columnConstraints>
-    <rowConstraints>
-        <RowConstraints />
-        <RowConstraints />
-        <RowConstraints />
-    </rowConstraints>
-
-    <Pane GridPane.rowIndex="0" GridPane.columnIndex="0" styleClass="pane" fx:id="canvasPane" width="${grid.width}" height="${grid.height}" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
+    <Pane styleClass="pane" fx:id="canvasPane" width="${grid.width}" height="${grid.height}" VBox.vgrow="ALWAYS">
         <Canvas fx:id="canvas" width="${canvasPane.width}" height="${canvasPane.height}"/>
     </Pane>
-    <HBox GridPane.rowIndex="1" GridPane.columnIndex="0">
+    <HBox>
         <Button text="Inport" fx:id="inportButton"/>
         <Button text="Clear" fx:id="clearButton"/>
         <Button text="Reset" fx:id="resetButton"/>
         <Button text="Refresh" fx:id="refreshButton"/>
         <ColorPicker fx:id="colorPicker" />
     </HBox>
-    <VBox GridPane.rowIndex="2" GridPane.columnIndex="0">
+    <HBox>
+        <Button text="Kmeans start" fx:id="kMeansStratButton"/>
+        <Button text="Kmeans play" fx:id="kMeansPlayButton"/>
+        <Button text="Kmeans stop" fx:id="kMeansStopButton"/>
+        <Button text="Kmeans restart" fx:id="kMeansRestartButton"/>
+    </HBox>
+    <VBox>
         <HBox>
             <Label text="Red" />
             <Slider fx:id="redSlider" min="0" max="100" value="100" />
@@ -68,4 +65,4 @@
         </HBox>
     </VBox>
 
-</GridPane>
+</VBox>

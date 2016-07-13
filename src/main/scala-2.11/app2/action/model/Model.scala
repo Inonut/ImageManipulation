@@ -25,6 +25,9 @@ case class ScaleImageModelResult(image: Image) extends Model
 case class AjustImageModelParams(image: Image, imageWidth: Double, imageHeight: Double, percentRed: Double, percentBlue: Double, percentGreen: Double, opacity: Double, contrast: Double, brightness: Double, hue: Double, saturation: Double) extends Model
 case class AjustImageModelResult(image: Image) extends Model
 
+case class AddPointModelParams(x: Double, y: Double, color: Color) extends Model
+case class AddPointModelResult(x: Double, y: Double, color: Color, size: Double) extends Model
+
 
 sealed trait MeansModel
 
