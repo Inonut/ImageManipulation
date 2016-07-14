@@ -3,7 +3,7 @@ package app2.action.algorithm
 import javafx.beans.property.SimpleBooleanProperty
 
 import app2.action.Action
-import app2.event.Event
+import app2.util.event.Event
 
 /**
   * Created by Dragos on 7/7/2016.

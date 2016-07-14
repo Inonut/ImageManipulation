@@ -9,7 +9,7 @@ import app2.util.Util
 /**
   * Created by Dragos on 7/6/2016.
   */
-class AjustImageAction extends Action[AjustImageModelParams, AjustImageModelResult]{
+class AjustImageAction extends ActionControl[AjustImageModelParams, AjustImageModelResult]{
 
   override protected def execute(model: AjustImageModelParams): AjustImageModelResult = {
 

@@ -9,7 +9,7 @@ import app2.util.Message
 /**
   * Created by Dragos on 7/6/2016.
   */
-class ClearImageAction extends Action[ClearImageModelParams, ClearImageModelResult] {
+class ClearImageAction extends ActionControl[ClearImageModelParams, ClearImageModelResult] {
 
 
   override protected def execute(params: ClearImageModelParams): ClearImageModelResult = ClearImageModelResult(params.canvasWidth, params.canvasHeight)

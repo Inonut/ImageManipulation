@@ -11,7 +11,7 @@ import app2.util.{Message, Util}
 /**
   * Created by Dragos on 7/5/2016.
   */
-class InportImageAction extends Action[InportImageModelParams, InportImageModelResult]{
+class InportImageAction extends ActionControl[InportImageModelParams, InportImageModelResult]{
 
   val fileChooser = new FileChooser
 

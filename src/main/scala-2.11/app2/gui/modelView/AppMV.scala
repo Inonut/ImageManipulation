@@ -1,15 +1,13 @@
 package app2.gui.modelView
 
-import javafx.application.Platform
-import javafx.beans.binding.{Bindings, BooleanBinding, When}
-import javafx.beans.value.{ChangeListener, ObservableValue}
+import javafx.beans.binding.{Bindings, When}
+import javafx.beans.value.ObservableValue
 import javafx.event.{ActionEvent, EventHandler}
 import javafx.scene.Node
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
 import javafx.scene.input.MouseEvent
 import javafx.scene.shape.Circle
-import javafx.stage.WindowEvent
 import javafx.util.StringConverter
 import javafx.util.converter.NumberStringConverter
 
@@ -17,7 +15,7 @@ import app2.action._
 import app2.action.algorithm.Kmeans
 import app2.action.model._
 import app2.gui.controller.AppController
-import app2.util.Util._
+import app2.util.Include._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -83,10 +81,12 @@ class AppMV(implicit appController: AppController) extends ModelView{
 
     appController.kMeansStratButton.onMouseClickedProperty.addListener((observable: ObservableValue[_ <: EventHandler[_ >: MouseEvent]], oldValue: EventHandler[_ >: MouseEvent], newValue: EventHandler[_ >: MouseEvent]) => appController.kMeansStratButton setDisable true)
 
-    appController.kMeansRestartButton.setOnAction((event: ActionEvent) => kMeandAction.restart())
+    /*appController.kMeansRestartButton.setOnAction((event: ActionEvent) => kMeandAction.restart())
     appController.kMeansStopButton.setOnAction((event: ActionEvent) => kMeandAction.stop())
     appController.kMeansPlayButton.setOnAction((event: ActionEvent) => kMeandAction.play())
-    appController.kMeansStratButton.setOnAction((event: ActionEvent) => kMeandAction.executeAsync(KmeansModelParams()))
+    appController.kMeansStratButton.setOnAction((event: ActionEvent) => kMeandAction.executeAsync(KmeansModelParams()))*/
+
+    //kMeandAction.executeSync(KmeansModelParams())
   }
 
   override def init(): Unit = onReset_Click()

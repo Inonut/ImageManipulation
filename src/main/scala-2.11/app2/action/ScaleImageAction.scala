@@ -8,7 +8,7 @@ import app2.util.{Message, Util}
 /**
   * Created by Dragos on 7/6/2016.
   */
-class ScaleImageAction extends Action[ScaleImageModelParams, ScaleImageModelResult]{
+class ScaleImageAction extends ActionControl[ScaleImageModelParams, ScaleImageModelResult]{
 
   val imageView = new ImageView
 
