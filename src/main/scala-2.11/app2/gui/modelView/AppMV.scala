@@ -11,8 +11,7 @@ import javafx.scene.shape.Circle
 import javafx.util.StringConverter
 import javafx.util.converter.NumberStringConverter
 
-import app2.action._
-import app2.action.algorithm.Kmeans
+import app2.action.actions._
 import app2.action.model._
 import app2.gui.controller.AppController
 import app2.util.Include._
@@ -32,17 +31,16 @@ class AppMV(implicit appController: AppController) extends ModelView{
   val resetValuesAction = new ResetValuesAction()
   val adjustImageAction = new AjustImageAction()
   val addPointAction = new AddPointAction()
-  val kMeandAction = new Kmeans()
 
-  def onInport_Click(): Unit =  inportImageAction.executeAsync(InportImageModelParams(appController.grid.getScene.getWindow)) map onSuccess flatMap scaleImageUtil recover onError
+  def onInport_Click(): Unit =  inportImageAction.execute(InportImageModelParams(appController.grid.getScene.getWindow)) map onSuccess flatMap scaleImageUtil recover onError
 
-  def onClear_Click(): Unit = clearImageAction.executeAsync(ClearImageModelParams(appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
+  def onClear_Click(): Unit = clearImageAction.execute(ClearImageModelParams(appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
 
-  def onReset_Click() = resetValuesAction.executeAsync(ResetValuesModelParams()) map onSuccess recover onError
+  def onReset_Click() = resetValuesAction.execute(ResetValuesModelParams()) map onSuccess recover onError
 
   def onRefresh_Click() = adjustImageUtil()
 
-  def onCanvas_MouseClick(x: Double, y: Double) = addPointAction.executeAsync(AddPointModelParams(x, y, appController.colorPicker.getValue)) map onSuccess recover onError
+  def onCanvas_MouseClick(x: Double, y: Double) = addPointAction.execute(AddPointModelParams(x, y, appController.colorPicker.getValue)) map onSuccess recover onError
 
   override def binding(): Unit = {
 
@@ -126,13 +124,13 @@ class AppMV(implicit appController: AppController) extends ModelView{
   }
 
   def scaleImage(image: Image): Future[Model] = {
-    scaleImageAction.executeAsync(ScaleImageModelParams(image, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
+    scaleImageAction.execute(ScaleImageModelParams(image, appController.canvas.getWidth, appController.canvas.getHeight)) map onSuccess recover onError
   }
 
   def adjustImageUtil: PartialFunction[Any, Unit] = {
     case _ =>
       if(appController.inportedImage != null){
-        adjustImageAction.executeAsync(AjustImageModelParams(
+        adjustImageAction.execute(AjustImageModelParams(
           appController.inportedImage,
           appController.inportedImage.getWidth,
           appController.inportedImage.getHeight,

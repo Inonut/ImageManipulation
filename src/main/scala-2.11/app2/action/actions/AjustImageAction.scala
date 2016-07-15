@@ -1,8 +1,9 @@
-package app2.action
+package app2.action.actions
 
 import javafx.scene.effect.ColorAdjust
 import javafx.scene.image.{ImageView, PixelFormat, WritableImage}
 
+import app2.action.ActionControl
 import app2.action.model.{AjustImageModelParams, AjustImageModelResult}
 import app2.util.Util
 
@@ -11,7 +12,7 @@ import app2.util.Util
   */
 class AjustImageAction extends ActionControl[AjustImageModelParams, AjustImageModelResult]{
 
-  override protected def execute(model: AjustImageModelParams): AjustImageModelResult = {
+  override protected def executeAsyncControled(model: AjustImageModelParams): AjustImageModelResult = {
 
     val oldPixels = new Array[Int](model.imageWidth.toInt * model.imageHeight.toInt)
     model.image.getPixelReader.getPixels(0, 0, model.imageWidth.toInt, model.imageHeight.toInt, PixelFormat.getIntArgbPreInstance, oldPixels, 0, model.imageWidth.toInt)

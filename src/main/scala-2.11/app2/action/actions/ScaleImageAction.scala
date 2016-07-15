@@ -1,9 +1,10 @@
-package app2.action
+package app2.action.actions
 
-import javafx.scene.image.{Image, ImageView}
+import javafx.scene.image.ImageView
 
+import app2.action.ActionControl
 import app2.action.model.{ScaleImageModelParams, ScaleImageModelResult}
-import app2.util.{Message, Util}
+import app2.util.Util
 
 /**
   * Created by Dragos on 7/6/2016.
@@ -12,7 +13,7 @@ class ScaleImageAction extends ActionControl[ScaleImageModelParams, ScaleImageMo
 
   val imageView = new ImageView
 
-  override protected def execute(model: ScaleImageModelParams): ScaleImageModelResult = {
+  override protected def executeAsyncControled(model: ScaleImageModelParams): ScaleImageModelResult = {
 
     imageView.setFitHeight(model.imageHeight)
     imageView.setFitWidth(model.imageWidth)
